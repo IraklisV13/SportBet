@@ -42,7 +42,14 @@ namespace SportBet.Repository
 
         public void Save()
         {
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException(ex.Message);
+            }
         }
 
         public void UpdateMatchOdds([FromBody] MatchOdd matchOdds)
