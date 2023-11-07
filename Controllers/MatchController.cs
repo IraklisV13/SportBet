@@ -21,7 +21,6 @@ namespace SportBet.Controllers
         {
             var matches = _matchRepository.GetMatches();
             return new OkObjectResult(matches);
-            //return matches == null ? NotFound() : new OkObjectResult(matches);
         }
 
         [HttpGet("{id}", Name = "GetMatch")]
