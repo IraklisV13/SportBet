@@ -38,9 +38,6 @@ namespace SportBet
             // Database Initialization
             CreateDbIfNotExists(app);
 
-            // Database Migration
-            MigrateDb(app);
-
             // Generate DB Initialization Script
             GenerateDatabaseInitializationScript(app);
 
@@ -63,23 +60,6 @@ namespace SportBet
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred creating the DB.");
                 }
-            }
-        }
-
-        private static void MigrateDb(WebApplication app)
-        {
-            var scope = app.Services.CreateScope();
-            var services = scope.ServiceProvider;
-
-            try
-            {
-                var context = services.GetRequiredService<MatchContext>();
-                context.Database.Migrate();
-            }
-            catch (Exception ex)
-            {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError($"Migration error: {ex.Message}");
             }
         }
 
