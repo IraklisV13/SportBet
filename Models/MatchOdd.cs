@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SportBet.Models
 {
     [PrimaryKey(nameof(Id))]
-    public class MatchOdds          // rename to MatchOdd ???
+    public class MatchOdd
     {
         #region Properties
 

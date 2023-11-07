@@ -7,11 +7,11 @@ namespace SportBet.Controllers
 {
     [Route("api/matchodds")]
     [ApiController]
-    public class MatchOddsController : ControllerBase
+    public class MatchOddController : ControllerBase
     {
-        private readonly IMatchOddsRepository _matchOddsRepository;
+        private readonly IMatchOddRepository _matchOddsRepository;
 
-        public MatchOddsController(IMatchOddsRepository matchOddsRepository)
+        public MatchOddController(IMatchOddRepository matchOddsRepository)
         {
             _matchOddsRepository = matchOddsRepository;
         }
@@ -31,7 +31,7 @@ namespace SportBet.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateMatchOdds([FromBody] MatchOdds matchOdds)
+        public IActionResult CreateMatchOdds([FromBody] MatchOdd matchOdds)
         {
             using (var scope = new TransactionScope())
             {
@@ -42,7 +42,7 @@ namespace SportBet.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateMatchOdds([FromBody] MatchOdds matchOdds)
+        public IActionResult UpdateMatchOdds([FromBody] MatchOdd matchOdds)
         {
             if (matchOdds != null)
             {

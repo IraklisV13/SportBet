@@ -23,15 +23,16 @@ namespace SportBet.Repository
         public void DeleteMatch(string id)
         {
             var match = _dbContext.Matches.Find(id);
-            _dbContext.Matches.Remove(match);           // handle nulls ???
-            Save();
+            if (match != null)
+            {
+                _dbContext.Matches.Remove(match);
+                Save();
+            }
         }
 
         public Match GetMatch(string id)
         {
             return _dbContext.Matches.Find(id);
-
-            // handle nulls ???
         }
 
         public IEnumerable<Match> GetMatches()
