@@ -13,7 +13,7 @@ namespace SportBet.DBContexts
 
         public DbSet<Match> Matches { get; set; }
 
-        public DbSet<MatchOdds> MatchOdds { get; set; }
+        public DbSet<MatchOdd> MatchOdds { get; set; }
 
         #endregion
 
@@ -21,15 +21,10 @@ namespace SportBet.DBContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer("DefaultConnection");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Match>()
-            //    .Property(m => m.Id)
-            //    .ValueGeneratedOnAdd();
-
             modelBuilder.Entity<Match>()
                 .Property(m => m.MatchDate)
                 .HasConversion(

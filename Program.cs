@@ -11,18 +11,15 @@ namespace SportBet
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllers();
-
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<MatchContext>(
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
             );
-
             builder.Services.AddScoped<IMatchRepository, MatchRepository>();
-            builder.Services.AddScoped<IMatchOddsRepository, MatchOddsRepository>();
+            builder.Services.AddScoped<IMatchOddRepository, MatchOddRepository>();
 
             var app = builder.Build();
 
@@ -38,14 +35,14 @@ namespace SportBet
 
             app.MapControllers();
 
-            // Generate DB Initialization Script
-            GenerateDatabaseInitializationScript(app);
-
             // Database Initialization
             CreateDbIfNotExists(app);
 
             // Database Migration
             MigrateDb(app);
+
+            // Generate DB Initialization Script
+            GenerateDatabaseInitializationScript(app);
 
             app.Run();
         }
@@ -78,7 +75,6 @@ namespace SportBet
             {
                 var context = services.GetRequiredService<MatchContext>();
                 context.Database.Migrate();
-                //transaction.Complete();
             }
             catch (Exception ex)
             {

@@ -11,8 +11,10 @@ namespace SportBet.Data
     {
         public static void Initialize(MatchContext context)
         {
-
-            // check if context null and then do what if it is ???
+            if (context == null) 
+            {
+                throw new ArgumentNullException(nameof(context), "Database context is null. Cannot initialize the database.");
+            }
 
             // Check if database already exists else create it and initialize with data
             if (!(context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists())
@@ -47,16 +49,16 @@ namespace SportBet.Data
                             }
                         };
 
-                        var matchesOdds = new MatchOdds[]
+                        var matchesOdds = new MatchOdd[]
                         {
-                            new MatchOdds
+                            new MatchOdd
                             {
                                 Id = "1",
                                 MatchId = "1",
                                 Specifier = "X",
                                 Odd = 2
                             },
-                            new MatchOdds
+                            new MatchOdd
                             {
                                 Id = "2",
                                 MatchId = "2",
@@ -70,7 +72,7 @@ namespace SportBet.Data
                             context.Matches.Add(m);
                         }
 
-                        foreach (MatchOdds mo in matchesOdds)
+                        foreach (MatchOdd mo in matchesOdds)
                         {
                             context.MatchOdds.Add(mo);
                         }
@@ -85,19 +87,6 @@ namespace SportBet.Data
                     }
                 }
             }
-
-            // change these to return  properly the set
-
-            //if (context.Matches.Any())
-            //{
-            //    return;
-            //}
-
-            //if (context.MatchOdds.Any())
-            //{
-            //    return;
-            //}
-
         }
     }
 }
